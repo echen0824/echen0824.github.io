@@ -4,7 +4,7 @@ let isAdmin = false;
 
 // Admin emails - store these in a more secure way in a production environment
 const ADMIN_EMAILS = [
-    'admin@example.com',
+    'yichi824@gmail.com',
     // Add more admin emails as needed
 ];
 
