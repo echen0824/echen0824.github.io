@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Videos - Online Course Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body oncontextmenu="return false;">
+    <header>
+        <div class="container">
+            <h1>My Videos</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Videos</a></li>
+                    <li id="dashboard-link" style="display: none;"><a href="dashboard.html">My Videos</a></li>
+                    <li id="admin-link" style="display: none;"><a href="admin.html">Admin</a></li>
+                </ul>
+            </nav>
+            <div id="user-section">
+                <div id="login-section">
+                    <div id="g_id_onload"
+                        data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                        data-callback="handleCredentialResponse"
+                        data-auto_select="true">
+                    </div>
+                    <div class="g_id_signin" data-type="standard"></div>
+                </div>
+                <div id="user-info" style="display: none;">
+                    <span id="user-name"></span>
+                    <span id="user-email" style="display: none;"></span>
+                    <button id="logout-btn">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="user-dashboard">
+            <div class="container">
+                <div id="auth-required-message" style="display: none;">
+                    <h2>Authentication Required</h2>
+                    <p>Please log in with Google to access your videos.</p>
+                </div>
+                
+                <div id="dashboard-content" style="display: none;">
+                    <div class="dashboard-section">
+                        <h2>My Videos</h2>
+                        <div id="user-videos" class="videos-grid"></div>
+                    </div>
+                    
+                    <div class="dashboard-section">
+                        <h2>Account Information</h2>
+                        <div class="account-info">
+                            <p><strong>Name:</strong> <span id="display-name"></span></p>
+                            <p><strong>Email:</strong> <span id="user-email-display"></span></p>
+                            <p><strong>Last Login:</strong> <span id="last-login"></span></p>
+                            <div class="current-session">
+                                <h3>Current Session</h3>
+                                <p>You are currently logged in from this device. Logging in from another device will end this session.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Online Course Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        // Disable inspect element (F12/Ctrl+Shift+I)
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>

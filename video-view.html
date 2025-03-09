@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player - Online Course Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body oncontextmenu="return false;">
+    <header>
+        <div class="container">
+            <h1>Online Course Platform</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Videos</a></li>
+                    <li id="dashboard-link" style="display: none;"><a href="dashboard.html">My Videos</a></li>
+                    <li id="admin-link" style="display: none;"><a href="admin.html">Admin</a></li>
+                </ul>
+            </nav>
+            <div id="user-section">
+                <div id="login-section">
+                    <div id="g_id_onload"
+                        data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                        data-callback="handleCredentialResponse"
+                        data-auto_select="true">
+                    </div>
+                    <div class="g_id_signin" data-type="standard"></div>
+                </div>
+                <div id="user-info" style="display: none;">
+                    <span id="user-name"></span>
+                    <span id="user-email" style="display: none;"></span>
+                    <button id="logout-btn">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="video-player-section">
+            <div class="container">
+                <div id="auth-required-message" style="display: none;">
+                    <h2>Authentication Required</h2>
+                    <p>Please log in with Google to view this video.</p>
+                </div>
+                
+                <div id="access-denied-message" style="display: none;">
+                    <h2>Access Denied</h2>
+                    <p>You do not have access to this video. Please contact the administrator if you believe this is a mistake.</p>
+                    <a href="courses.html" class="btn">Back to Videos</a>
+                </div>
+                
+                <div id="video-content" style="display: none;">
+                    <h2 id="video-title"></h2>
+                    <div class="video-container">
+                        <div id="player"></div>
+                    </div>
+                    <div class="video-info">
+                        <p id="video-description"></p>
+                        <p id="video-category" class="video-category-tag"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Online Course Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="js/video-view.js"></script>
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        // Disable inspect element (F12/Ctrl+Shift+I)
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>

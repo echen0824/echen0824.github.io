@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Online Course Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body oncontextmenu="return false;">
+    <header>
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li id="dashboard-link" style="display: none;"><a href="dashboard.html">My Courses</a></li>
+                    <li id="admin-link" style="display: none;"><a href="admin.html">Admin</a></li>
+                </ul>
+            </nav>
+            <div id="user-section">
+                <div id="login-section">
+                    <div id="g_id_onload"
+                        data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                        data-callback="handleCredentialResponse"
+                        data-auto_select="true">
+                    </div>
+                    <div class="g_id_signin" data-type="standard"></div>
+                </div>
+                <div id="user-info" style="display: none;">
+                    <span id="user-name"></span>
+                    <span id="user-email" style="display: none;"></span>
+                    <button id="logout-btn">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="admin-panel">
+            <div class="container">
+                <div id="admin-error" style="display: none;">
+                    <h2>Access Denied</h2>
+                    <p>You don't have admin privileges to access this page.</p>
+                </div>
+                
+                <div id="admin-content" style="display: none;">
+                    <div class="admin-section">
+                        <h2>Manage Videos</h2>
+                        <button id="add-video-btn" class="btn">Add New Video</button>
+                        <div id="videos-list-admin"></div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h2>Manage Users</h2>
+                        <div id="users-list"></div>
+                    </div>
+                    
+                    <div id="add-video-modal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2>Add New Video</h2>
+                            <form id="add-video-form">
+                                <div class="form-group">
+                                    <label for="video-title">Video Title:</label>
+                                    <input type="text" id="video-title" name="video-title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="video-description">Description:</label>
+                                    <textarea id="video-description" name="video-description" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="youtube-url">YouTube Video URL:</label>
+                                    <input type="url" id="youtube-url" name="youtube-url" required placeholder="https://www.youtube.com/watch?v=...">
+                                    <small>Please enter the full YouTube URL for the unlisted video</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="video-thumbnail">Thumbnail URL (optional):</label>
+                                    <input type="url" id="video-thumbnail" name="video-thumbnail" placeholder="https://example.com/thumbnail.jpg">
+                                    <small>If left empty, a YouTube thumbnail will be used</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="video-category">Category:</label>
+                                    <input type="text" id="video-category" name="video-category" placeholder="E.g., Programming, Design, etc.">
+                                </div>
+                                <button type="submit" class="btn">Add Video</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div id="manage-access-modal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2>Manage Video Access</h2>
+                            <div id="video-info">
+                                <h3 id="access-video-title"></h3>
+                                <p id="access-video-description"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-user-email">Add User Access:</label>
+                                <div class="email-input-group">
+                                    <input type="email" id="new-user-email" placeholder="user@example.com">
+                                    <button id="add-user-access-btn" class="btn">Add</button>
+                                </div>
+                            </div>
+                            <div class="access-list">
+                                <h3>Current Access List</h3>
+                                <ul id="user-access-list"></ul>
+                            </div>
+                            <input type="hidden" id="current-video-id">
+                        </div>
+                    </div>
+                    
+                    <div id="edit-video-modal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2>Edit Video</h2>
+                            <form id="edit-video-form">
+                                <input type="hidden" id="edit-video-id">
+                                <div class="form-group">
+                                    <label for="edit-video-title">Video Title:</label>
+                                    <input type="text" id="edit-video-title" name="edit-video-title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-video-description">Description:</label>
+                                    <textarea id="edit-video-description" name="edit-video-description" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-youtube-url">YouTube Video URL:</label>
+                                    <input type="url" id="edit-youtube-url" name="edit-youtube-url" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-video-thumbnail">Thumbnail URL:</label>
+                                    <input type="url" id="edit-video-thumbnail" name="edit-video-thumbnail">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-video-category">Category:</label>
+                                    <input type="text" id="edit-video-category" name="edit-video-category">
+                                </div>
+                                <button type="submit" class="btn">Update Video</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Online Course Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        // Disable inspect element (F12/Ctrl+Shift+I)
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
